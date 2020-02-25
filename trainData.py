@@ -62,7 +62,6 @@ def train_data():
 		# Check if its big enough
 		if cv2.contourArea(i) > image_edges:
 
-			count = count + 1
 			found_count = found_count +1
 
 			# Get bounding rect
@@ -75,7 +74,7 @@ def train_data():
 			resize_cropped = cv2.resize(cropped_character, (resized_image_w, resized_image_h))
 
                         # There are 22 columns (22 variations of each letter in english alphabet) in the provided training image
-			if count <22:
+			if count < 22:
 				classification.append(all_chars[index_to_add])
 
 			elif count == 22:
@@ -83,12 +82,13 @@ def train_data():
 				classification.append(all_chars[index_to_add])
 				index_to_add = index_to_add + 1
 
-			# Flatten image to 1d numpy array and add to array
+			# Flatten image to 1d numpy array and add to array for easy writing to .txt file
 			flat_image = resize_cropped.reshape((1, resized_image_w * resized_image_h))
 			flattened_image = numpy.append(flattened_image, flat_image, 0)
+			count = count + 1
 
 
-        # Convert classification array to floats and then reshape to flat
+        # Convert classification array to floats and then reshape to 1d, so it can be written to text file
 	float_classification = numpy.array(classification, numpy.float32)
 	flat_classification = float_classification.reshape((float_classification.size, 1))
 
@@ -97,7 +97,7 @@ def train_data():
 	numpy.savetxt("flattened_images.txt", flattened_image)
 
         # General feedback
-	print("Training completed!\n")
+	print("Training completed!")
 	print("Found contours: {}".format(found_count))
 
 # Call main method
