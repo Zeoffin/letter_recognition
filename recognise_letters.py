@@ -9,7 +9,10 @@ image_edges = 48
 resized_image_w = 20
 resized_image_h = 30
 
-image_to_recognise = "test_images/alphabet.png"
+# K number used in k-nearest neighbor. Odd, so there are no ties when decideing
+k_number = 31
+
+image_to_recognise = "test_images/l.png"
 
 
 # Class for detecting each individual letter in a provided image
@@ -114,7 +117,7 @@ def main():
         flat_letter = numpy.float32(flat_letter)
 
         # Find the nearest k
-        value, results, neigh_resp, dists = k_nearest.findNearest(flat_letter, k=20)
+        value, results, neigh_resp, dists = k_nearest.findNearest(flat_letter, k=k_number)
 
         # Get the determined letter and append to string which will be returned
         current_letter = str(chr(int(results[0][0])))
