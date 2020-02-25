@@ -15,10 +15,7 @@ RESIZED_IMAGE_HEIGHT = 30
 def main():
     imgTrainingNumbers = cv2.imread("training_chars.png")            # read in training numbers image
 
-    if imgTrainingNumbers is None:                          # if image was not read successfully
-        print "error: image not read from file \n\n"        # print error message to std out
-        os.system("pause")                                  # pause so user can see error message
-        return                                              # and exit function (which exits program)
+                                        # and exit function (which exits program)
     # end if
 
     imgGray = cv2.cvtColor(imgTrainingNumbers, cv2.COLOR_BGR2GRAY)          # get grayscale image
@@ -51,6 +48,8 @@ def main():
                      ord('A'), ord('B'), ord('C'), ord('D'), ord('E'), ord('F'), ord('G'), ord('H'), ord('I'), ord('J'),
                      ord('K'), ord('L'), ord('M'), ord('N'), ord('O'), ord('P'), ord('Q'), ord('R'), ord('S'), ord('T'),
                      ord('U'), ord('V'), ord('W'), ord('X'), ord('Y'), ord('Z')]
+
+    sorted_ctrs = sorted(npaContours, key = lambda npaContours: cv2.boundingRect(npaContours)[1])
 
     for npaContour in npaContours:                          # for each contour
         if cv2.contourArea(npaContour) > MIN_CONTOUR_AREA:          # if contour is big enough to consider
@@ -88,7 +87,7 @@ def main():
 
     npaClassifications = fltClassifications.reshape((fltClassifications.size, 1))   # flatten numpy array of floats to 1d so we can write to file later
 
-    print "\n\ntraining complete !!\n"
+    print ("\n\ntraining complete !!\n")
 
     np.savetxt("classifications.txt", npaClassifications)           # write flattened images to file
     np.savetxt("flattened_images.txt", npaFlattenedImages)          #

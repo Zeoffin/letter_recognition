@@ -42,7 +42,7 @@ def main():
     try:
         npaClassifications = np.loadtxt("classifications.txt", np.float32)                  # read in training classifications
     except:
-        print "error, unable to open classifications.txt, exiting program\n"
+        print ("error, unable to open classifications.txt, exiting program\n")
         os.system("pause")
         return
     # end try
@@ -50,7 +50,7 @@ def main():
     try:
         npaFlattenedImages = np.loadtxt("flattened_images.txt", np.float32)                 # read in training images
     except:
-        print "error, unable to open flattened_images.txt, exiting program\n"
+        print ("error, unable to open flattened_images.txt, exiting program\n")
         os.system("pause")
         return
     # end try
@@ -61,10 +61,10 @@ def main():
 
     kNearest.train(npaFlattenedImages, cv2.ml.ROW_SAMPLE, npaClassifications)
 
-    imgTestingNumbers = cv2.imread("test1.png")          # read in testing numbers image
+    imgTestingNumbers = cv2.imread("abc.png")          # read in testing numbers image
 
     if imgTestingNumbers is None:                           # if image was not read successfully
-        print "error: image not read from file \n\n"        # print error message to std out
+        print ("error: image not read from file \n\n")        # print error message to std out
         os.system("pause")                                  # pause so user can see error message
         return                                              # and exit function (which exits program)
     # end if
@@ -82,7 +82,7 @@ def main():
 
     imgThreshCopy = imgThresh.copy()        # make a copy of the thresh image, this in necessary b/c findContours modifies the image
 
-    imgContours, npaContours, npaHierarchy = cv2.findContours(imgThreshCopy,             # input image, make sure to use a copy since the function will modify this image in the course of finding contours
+    npaContours, npaHierarchy = cv2.findContours(imgThreshCopy,             # input image, make sure to use a copy since the function will modify this image in the course of finding contours
                                                  cv2.RETR_EXTERNAL,         # retrieve the outermost contours only
                                                  cv2.CHAIN_APPROX_SIMPLE)   # compress horizontal, vertical, and diagonal segments and leave only their end points
 
@@ -129,7 +129,7 @@ def main():
         strFinalString = strFinalString + strCurrentChar            # append current char to full string
     # end for
 
-    print "\n" + strFinalString + "\n"                  # show the full string
+    print ("\n" + strFinalString + "\n")                  # show the full string
 
     cv2.imshow("imgTestingNumbers", imgTestingNumbers)      # show input image with green boxes drawn around found digits
     cv2.waitKey(0)                                          # wait for user key press
