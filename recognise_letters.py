@@ -55,7 +55,7 @@ def main():
     # reshape numpy array to 1d array
     classifications = classifications.reshape((classifications.size, 1))
 
-    # Initiate knn
+    # Initiate k-nearest neighbor
     k_nearest = cv2.ml.KNearest_create()
     k_nearest.train(flattened_images, cv2.ml.ROW_SAMPLE, classifications)
 
@@ -114,7 +114,7 @@ def main():
         flat_letter = numpy.float32(flat_letter)
 
         # Find the nearest k
-        value, results, neigh_resp, dists = k_nearest.findNearest(flat_letter, k=1)
+        value, results, neigh_resp, dists = k_nearest.findNearest(flat_letter, k=20)
 
         # Get the determined letter and append to string which will be returned
         current_letter = str(chr(int(results[0][0])))
