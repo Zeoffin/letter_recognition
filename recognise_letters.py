@@ -35,7 +35,6 @@ class ContourWithData:
         self.rectangle_w = int_width
         self.rectangle_h = int_height
 
-    # TODO: Make this better to validate
     def contour_valid(self):
 
         if self.area < image_edges:
@@ -74,7 +73,6 @@ def main():
                                             11, 2)
 
 
-    # TODO: change SIMPLE --> NONE
     contours, hierarchy = cv2.findContours(image_threshold, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
     for c in contours:
