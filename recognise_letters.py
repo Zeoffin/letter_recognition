@@ -11,10 +11,10 @@ image_edges = 48
 resized_image_w = 20
 resized_image_h = 30
 
-# K number used in k-nearest neighbor. Odd, so there are no ties when decideing
+# K number used in k-nearest neighbor. Odd, so there are no ties when deciding
 k_number = 23
 
-image_to_recognise = "test_images/z.png"
+image_to_recognise = "scans/a1.png"
 
 
 # Class for saving data for detected letter
@@ -69,6 +69,7 @@ def main():
     all_detected_letters = []
     all_letter_avarage_distance = []
 
+    # Angle used for rotating the image 3 times
     angle = 0
 
     # Check for all possible 4 rotations
@@ -152,7 +153,9 @@ def main():
             current_letter = str(chr(int(results[0][0])))
             detected_letters = detected_letters + current_letter
 
+        # Hold all average distances from all 4 rotations
         avg_dis_list = []
+
         # Calculate the avarage distance for each rotation of image
         if valid_contours_with_data[-1]:
 
@@ -165,14 +168,13 @@ def main():
                     avg_dis_sum = avg_dis_sum + x
 
             avg_dis = avg_dis_sum/distance_instances
-
             avg_dis_list.append(avg_dis)
-
 
             # Appends all avarage distances and all letters of those distances
             all_detected_letters.append(detected_letters[-1])
             all_letter_avarage_distance.append(avg_dis_list[-1])
         
+        # Rotate the image by increasing the angle
         angle = angle + 90
 
     # String which will hold detected letter
@@ -181,7 +183,7 @@ def main():
     # A big number for convenience
     shortest_distance = 50000000
 
-    # Find the shortest distance
+    # Find the shortest distance from all average calculated distances
     for i in all_letter_avarage_distance:
         x = x + i
         if i < shortest_distance:
