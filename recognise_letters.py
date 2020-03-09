@@ -14,7 +14,8 @@ resized_image_h = 30
 # K number used in k-nearest neighbor. Odd, so there are no ties when deciding
 k_number = 23
 
-image_to_recognise = "scans/a1.png"
+# Get image path from Pictures folder
+image_to_recognise = os.path.join(os.path.expanduser('~'), 'Pictures', 'scanned_letter.png')
 
 
 # Class for saving data for detected letter
@@ -96,8 +97,11 @@ def main():
         else:
             letter_image = rotate_image(image_to_recognise, angle)
 
+	# Since the scans give mirrored image, flip it horizontally
+	flipped_image = cv2.flip(letter_image, 1)
+
         # Set grayscale and blur the image with letter in it
-        gray_image = cv2.cvtColor(letter_image, cv2.COLOR_BGR2GRAY)
+        gray_image = cv2.cvtColor(flipped_image, cv2.COLOR_BGR2GRAY)
         blurred_image = cv2.GaussianBlur(gray_image, (5, 5), 0)
 
         # filter image from grayscale to black and white
