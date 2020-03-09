@@ -17,6 +17,9 @@ k_number = 23
 # Get image path from Pictures folder
 image_to_recognise = os.path.join(os.path.expanduser('~'), 'Pictures', 'scanned_letter.png')
 
+# Or get image form local folder 'scans' / 'test_images'
+#image_to_recognise = "scans/a3.png"
+
 
 # Class for saving data for detected letter
 class ContourWithData:
@@ -75,6 +78,7 @@ def main():
 
     # Check for all possible 4 rotations
     for n in range(4):
+        
         all_contours_with_data = []
         valid_contours_with_data = []
 
@@ -97,8 +101,8 @@ def main():
         else:
             letter_image = rotate_image(image_to_recognise, angle)
 
-	# Since the scans give mirrored image, flip it horizontally
-	flipped_image = cv2.flip(letter_image, 1)
+	    # Since the scans give mirrored image, flip it horizontally
+        flipped_image = cv2.flip(letter_image, 1)
 
         # Set grayscale and blur the image with letter in it
         gray_image = cv2.cvtColor(flipped_image, cv2.COLOR_BGR2GRAY)
